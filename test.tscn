@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bud1p5ohi4u7o"]
+
+[ext_resource type="Script" uid="uid://dc1esujdx10kn" path="res://TestFlashcardGUI.gd" id="1_37kl0"]
+
+[node name="FlashcardUI" type="VBoxContainer"]
+offset_right = 68.0
+offset_bottom = 97.0
+script = ExtResource("1_37kl0")
+
+[node name="QuestionLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="AnswerInput" type="LineEdit" parent="."]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="."]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="."]
+layout_mode = 2
