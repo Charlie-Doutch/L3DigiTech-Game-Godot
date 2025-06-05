@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bud1p5ohi4u7o"]
+[gd_scene load_steps=2 format=3 uid="uid://ca1dh5naxbtpd"]
 
-[ext_resource type="Script" uid="uid://cl3m2x51hcmyt" path="res://Flashcard.gd" id="2_8uh7m"]
+[ext_resource type="Script" uid="uid://cl3m2x51hcmyt" path="res://Flashcard.gd" id="1_6nt82"]
 
 [node name="FlashcardUI" type="CanvasLayer"]
 
@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-script = ExtResource("2_8uh7m")
+script = ExtResource("1_6nt82")
 
 [node name="ListSelect" type="LineEdit" parent="Node2D"]
 layout_mode = 2
