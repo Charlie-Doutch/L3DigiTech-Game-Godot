@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ca1dh5naxbtpd"]
 
-[ext_resource type="Script" uid="uid://cl3m2x51hcmyt" path="res://Flashcard.gd" id="1_6nt82"]
+[ext_resource type="Script" uid="uid://cl3m2x51hcmyt" path="res://Scenes/Flashcard.gd" id="1_6nt82"]
 
 [node name="FlashcardUI" type="CanvasLayer"]
 
