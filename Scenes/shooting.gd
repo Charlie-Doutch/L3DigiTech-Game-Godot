@@ -17,6 +17,6 @@ func _input(event):
 			last_shot_time = current_time
 
 func shoot():
-	var bullet = bullet_scene.instantiate()
+	var bullet = bullet_scene.instantiate() as Bullet
 	bullet.global_position = global_position - Vector2(0, 20)
 	get_tree().root.get_node("main").add_child(bullet)
