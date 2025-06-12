@@ -8,9 +8,42 @@ const COLUMNS = 10
 const HORIZONTAL_SPACING = 30
 const VERTICAL_SPACING = 30
 const ENEMY_HEIGHT = 20
-const START_Y_POS = -50
+const START_Y_POS = -10
 const ENEMY_X_POS_INCREMENT = 10
 const ENEMY_Y_POS_INCREMENT = 20
 
 var movement_direction = 1
- 
+
+var enemy_scene = preload("res://Scenes/enemy.tscn")
+
+func _ready():
+	var enemy_1_res = preload("res://Resources/enemy_1.tres")
+	var enemy_2_res = preload("res://Resources/enemy_2.tres")
+	var enemy_3_res = preload("res://Resources/enemy_3.tres")
+	
+	var enemy_config
+	
+	# sets enemies in set rows
+	for row in ROWS:
+		if row == 0:
+			enemy_config = enemy_1_res
+		elif row == 1 or row == 2:
+			enemy_config = enemy_2_res
+		elif row == 3 or row == 4:
+			enemy_config = enemy_3_res
+		
+		var row_width = (COLUMNS * enemy_config.width * 3) + ((COLUMNS - 1) * HORIZONTAL_SPACING)
+		var start_x = (position.x - row_width) / 2
+		
+		for col in COLUMNS:
+			var x = start_x + (col * enemy_config.width * 3) + (col * HORIZONTAL_SPACING)
+			var y = START_Y_POS + (row * ENEMY_HEIGHT) + (row * VERTICAL_SPACING)
+			var spawn_pos = Vector2(x, y)
+			
+			spawn_enemy(enemy_config, spawn_pos)
+
+func spawn_enemy(enemy_config, spawn_pos: Vector2):
+	var enemy = enemy_scene.instantiate() as Enemy
+	enemy.config = enemy_config
+	enemy.global_position = spawn_pos
+	add_child(enemy)

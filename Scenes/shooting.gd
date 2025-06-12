@@ -9,7 +9,7 @@ var last_shot_time := 0.0
 func _ready():
 	last_shot_time = -time_between_shots  # allow immediate first shot
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_pressed("shoot"):
 		var current_time = Time.get_ticks_msec() / 1000.0  # convert ms to seconds
 		if current_time - last_shot_time >= time_between_shots:
