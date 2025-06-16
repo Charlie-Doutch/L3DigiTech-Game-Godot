@@ -2,9 +2,8 @@ extends Area2D
 
 class_name Enemy
 
-@onready var sprite_2d = $EnemySprite
-
 var config: Resource
+@onready var sprite = $Sprite2D
 
 func _ready():
-	sprite_2d.texture = config.sprite
+	sprite.texture = config.sprite

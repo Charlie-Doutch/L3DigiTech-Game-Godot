@@ -32,7 +32,7 @@ func _process(delta):
 	var delta_movement = player_speed*delta*direction.x
 	
 	# Check to see if player is attempting to move out of bounds
-	if (position.x + delta_movement < start_bound + bound_box_x*transform.get_scale().x or 
+	if (position.x + delta_movement < start_bound + bound_box_x*transform.get_scale().x || 
 		position.x + delta_movement > end_bound - bound_box_x*transform.get_scale().x):
 		return
 	
