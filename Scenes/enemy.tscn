@@ -1,19 +1,102 @@
-[gd_scene load_steps=4 format=3 uid="uid://baggamyd0kj0j"]
+[gd_scene load_steps=14 format=3 uid="uid://baggamyd0kj0j"]
 
 [ext_resource type="Script" uid="uid://dvg17seb6y4uv" path="res://Scenes/enemy.gd" id="1_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://cjebsywydkdi0" path="res://Assests/enemyPlaceholder.png" id="1_hghv2"]
+[ext_resource type="Texture2D" uid="uid://dwqhsu30dffke" path="res://Assests/space invaders enemies-1.png.png" id="2_1f0kj"]
+[ext_resource type="Texture2D" uid="uid://bb5j86qr2wirb" path="res://Assests/space invaders enemies-2.png.png" id="3_0830c"]
+[ext_resource type="Texture2D" uid="uid://t0symn750qd" path="res://Assests/space invaders enemies-3.png.png" id="4_ghaa6"]
+[ext_resource type="Texture2D" uid="uid://bkw5ch6g8xqq0" path="res://Assests/space invaders enemies-4.png.png" id="5_1dp5w"]
+[ext_resource type="Texture2D" uid="uid://cwrnffmn22ttx" path="res://Assests/space invaders enemies-5.png.png" id="6_1dp5w"]
+[ext_resource type="Texture2D" uid="uid://yifh5rw8eov4" path="res://Assests/space invaders enemies-6.png.png" id="7_auwsv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]
-radius = 14.0
+radius = 22.0
+
+[sub_resource type="Animation" id="Animation_auwsv"]
+resource_name = "move_1"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_1f0kj"), ExtResource("3_0830c")]
+}
+
+[sub_resource type="Animation" id="Animation_8uf12"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_1f0kj")]
+}
+
+[sub_resource type="Animation" id="Animation_po0sg"]
+resource_name = "move_2"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_ghaa6"), ExtResource("5_1dp5w")]
+}
+
+[sub_resource type="Animation" id="Animation_haro7"]
+resource_name = "move_3"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("6_1dp5w"), ExtResource("7_auwsv")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_haro7"]
+_data = {
+&"RESET": SubResource("Animation_8uf12"),
+&"move_1": SubResource("Animation_auwsv"),
+&"move_2": SubResource("Animation_po0sg"),
+&"move_3": SubResource("Animation_haro7")
+}
 
 [node name="Enemy" type="Area2D"]
+scale = Vector2(1.5, 1.5)
 collision_layer = 4
 collision_mask = 18
 script = ExtResource("1_1f0kj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_hghv2")
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("2_1f0kj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hghv2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_haro7")
+}

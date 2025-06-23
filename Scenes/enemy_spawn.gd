@@ -5,9 +5,9 @@ class_name EnemySpawn
 # configuration/way the enemies spawn
 const ROWS = 5
 const COLUMNS = 11
-const HORIZONTAL_SPACING = 30
-const VERTICAL_SPACING = 20
-const ENEMY_HEIGHT = 91
+const HORIZONTAL_SPACING = 70
+const VERTICAL_SPACING = 60
+const ENEMY_HEIGHT = 24
 
 var enemy_scene
 const START_Y_POS = -350
@@ -34,7 +34,7 @@ func _ready():
 			enemy_config = enemy_3_res
 		
 		var row_width = (COLUMNS * enemy_config.width / 2) + ((COLUMNS - 1) * HORIZONTAL_SPACING)
-		var start_x = (position.x - row_width) / 2.14
+		var start_x = (position.x - row_width) / 2
 		
 		for col in COLUMNS:
 			var x = start_x + (col * enemy_config.width / 2) + (col * HORIZONTAL_SPACING)

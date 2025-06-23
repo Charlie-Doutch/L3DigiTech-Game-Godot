@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://bob0ymox2md4h"]
 
 [ext_resource type="Script" uid="uid://bemjbx65j0n8l" path="res://Resources/enemy_config.gd" id="1_fbna1"]
-[ext_resource type="Texture2D" uid="uid://dmhrevvpmrnrp" path="res://Assests/enemyPlaceholder2.png" id="2_fbna1"]
+[ext_resource type="Texture2D" uid="uid://t0symn750qd" path="res://Assests/space invaders enemies-3.png.png" id="2_fbna1"]
 
 [resource]
 script = ExtResource("1_fbna1")
 sprite = ExtResource("2_fbna1")
-width = 221
+width = 11
 animation_name = "move_2"
 points = 20
