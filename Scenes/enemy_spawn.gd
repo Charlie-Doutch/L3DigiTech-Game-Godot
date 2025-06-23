@@ -12,11 +12,16 @@ const ENEMY_HEIGHT = 24
 var enemy_scene
 const START_Y_POS = -350
 
-const ENEMY_X_POS_INCREMENT = 10
-const ENEMY_Y_POS_INCREMENT = 20
+const ENEMY_X_POS_INCREMENT = 15
+const ENEMY_Y_POS_INCREMENT = 30
 var movement_direction = 1
 
+# node references
+@onready var move_timer = $MoveTimer
+
 func _ready():
+	# set up timers
+	move_timer.timeout.connect(enemy_move)
 	var enemy_1_res = preload("res://Resources/enemy_1.tres")
 	var enemy_2_res = preload("res://Resources/enemy_2.tres")
 	var enemy_3_res = preload("res://Resources/enemy_3.tres")
@@ -48,3 +53,17 @@ func spawn_enemy(enemy_config, spawn_pos: Vector2):
 	enemy.config = enemy_config
 	enemy.global_position = spawn_pos
 	add_child(enemy)
+
+func enemy_move():
+	position.x += ENEMY_X_POS_INCREMENT * movement_direction
+
+func _on_left_wall_area_entered(area):
+	if (movement_direction == -1):
+		position.y += ENEMY_Y_POS_INCREMENT
+		movement_direction *= -1
+
+
+func _on_right_wall_area_entered(area):
+	if (movement_direction == 1):
+		position.y += ENEMY_Y_POS_INCREMENT
+		movement_direction *= -1
