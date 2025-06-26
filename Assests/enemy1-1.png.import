@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt8puw7eukwl0"
-path="res://.godot/imported/beam_down.png-bea286c226d13be3e2cf1571d0dfcee7.ctex"
+uid="uid://dwqhsu30dffke"
+path="res://.godot/imported/enemy1-1.png-a2711477ada9da95b623b17cd1525f12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assests/beam_down.png"
-dest_files=["res://.godot/imported/beam_down.png-bea286c226d13be3e2cf1571d0dfcee7.ctex"]
+source_file="res://Assests/enemy1-1.png"
+dest_files=["res://.godot/imported/enemy1-1.png-a2711477ada9da95b623b17cd1525f12.ctex"]
 
 [params]
 

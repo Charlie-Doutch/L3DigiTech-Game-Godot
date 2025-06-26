@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cjm70v4rayxv6"]
 
 [ext_resource type="Script" uid="uid://qfru5rxn6iia" path="res://Scenes/bullet.gd" id="1_oduel"]
-[ext_resource type="Texture2D" uid="uid://dt8puw7eukwl0" path="res://Assests/beam_down.png" id="1_xjght"]
+[ext_resource type="Texture2D" uid="uid://dt8puw7eukwl0" path="res://Assests/player bullet.png" id="1_xjght"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycag2"]
 size = Vector2(2, 17)

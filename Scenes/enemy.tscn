@@ -1,16 +1,16 @@
 [gd_scene load_steps=19 format=3 uid="uid://baggamyd0kj0j"]
 
 [ext_resource type="Script" uid="uid://dvg17seb6y4uv" path="res://Scenes/enemy.gd" id="1_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://dwqhsu30dffke" path="res://Assests/space invaders enemies-1.png.png" id="2_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://bb5j86qr2wirb" path="res://Assests/space invaders enemies-2.png.png" id="3_0830c"]
-[ext_resource type="Texture2D" uid="uid://t0symn750qd" path="res://Assests/space invaders enemies-3.png.png" id="4_ghaa6"]
-[ext_resource type="Texture2D" uid="uid://bkw5ch6g8xqq0" path="res://Assests/space invaders enemies-4.png.png" id="5_1dp5w"]
-[ext_resource type="Texture2D" uid="uid://cwrnffmn22ttx" path="res://Assests/space invaders enemies-5.png.png" id="6_1dp5w"]
-[ext_resource type="Texture2D" uid="uid://yifh5rw8eov4" path="res://Assests/space invaders enemies-6.png.png" id="7_auwsv"]
-[ext_resource type="Texture2D" uid="uid://c5wfntovbsrqh" path="res://Resources/space invaders enemies-7.png.png" id="8_haro7"]
-[ext_resource type="Texture2D" uid="uid://7073x2ekov5e" path="res://Resources/space invaders enemies-9.png.png" id="9_56vhr"]
-[ext_resource type="Texture2D" uid="uid://dnxuv5d4gsix6" path="res://Resources/space invaders enemies-8.png.png" id="10_ta2yt"]
-[ext_resource type="Texture2D" uid="uid://dyk852loviak8" path="res://Assests/space invaders enemies-10.png.png" id="11_m4x7e"]
+[ext_resource type="Texture2D" uid="uid://dwqhsu30dffke" path="res://Assests/enemy1-1.png" id="2_1f0kj"]
+[ext_resource type="Texture2D" uid="uid://bb5j86qr2wirb" path="res://Assests/enemy1-2.png" id="3_0830c"]
+[ext_resource type="Texture2D" uid="uid://t0symn750qd" path="res://Assests/enemy2-1.png" id="4_ghaa6"]
+[ext_resource type="Texture2D" uid="uid://bkw5ch6g8xqq0" path="res://Assests/enemy2-2.png" id="5_1dp5w"]
+[ext_resource type="Texture2D" uid="uid://cwrnffmn22ttx" path="res://Assests/enemy3-1.png" id="6_1dp5w"]
+[ext_resource type="Texture2D" uid="uid://yifh5rw8eov4" path="res://Assests/enemy3-2.png" id="7_auwsv"]
+[ext_resource type="Texture2D" uid="uid://c5wfntovbsrqh" path="res://Assests/enemy destroy1.png" id="8_haro7"]
+[ext_resource type="Texture2D" uid="uid://7073x2ekov5e" path="res://Assests/enemy destroy2.png" id="9_56vhr"]
+[ext_resource type="Texture2D" uid="uid://dnxuv5d4gsix6" path="res://Assests/enemy destroy3.png" id="10_ta2yt"]
+[ext_resource type="Texture2D" uid="uid://dyk852loviak8" path="res://Assests/enemy destroy4.png" id="11_m4x7e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]
 radius = 22.0
@@ -28,6 +28,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("2_1f0kj")]
+}
+
+[sub_resource type="Animation" id="Animation_vt4ob"]
+resource_name = "destroyed"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("8_haro7"), ExtResource("9_56vhr"), ExtResource("10_ta2yt"), ExtResource("11_m4x7e")]
 }
 
 [sub_resource type="Animation" id="Animation_auwsv"]
@@ -76,22 +92,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("6_1dp5w"), ExtResource("7_auwsv")]
-}
-
-[sub_resource type="Animation" id="Animation_vt4ob"]
-resource_name = "destroyed"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("8_haro7"), ExtResource("9_56vhr"), ExtResource("10_ta2yt"), ExtResource("11_m4x7e")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_haro7"]

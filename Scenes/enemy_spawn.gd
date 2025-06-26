@@ -16,12 +16,18 @@ const ENEMY_X_POS_INCREMENT = 15
 const ENEMY_Y_POS_INCREMENT = 30
 var movement_direction = 1
 
+var enemy_shot_scene = preload("res://Scenes/enemy_shot.tscn")
+
 # node references
 @onready var move_timer = $MoveTimer
+@onready var shot_timer = $ShotTimer
+
 
 func _ready():
 	# set up timers
 	move_timer.timeout.connect(enemy_move)
+	shot_timer.timeout.connect(on_enemy_shot)
+	
 	var enemy_1_res = preload("res://Resources/enemy_1.tres")
 	var enemy_2_res = preload("res://Resources/enemy_2.tres")
 	var enemy_3_res = preload("res://Resources/enemy_3.tres")
@@ -67,3 +73,10 @@ func _on_right_wall_area_entered(area):
 	if (movement_direction == 1):
 		position.y += ENEMY_Y_POS_INCREMENT
 		movement_direction *= -1
+
+func on_enemy_shot():
+	var random_child_pos = get_children().filter(func (child ): return child is Enemy).map(func (enemy): return enemy.global_position).pick_random()
+	
+	var enemy_shot = enemy_shot_scene.instantiate() as EnemyShot
+	enemy_shot.global_position = random_child_pos
+	get_tree().root.add_child(enemy_shot)

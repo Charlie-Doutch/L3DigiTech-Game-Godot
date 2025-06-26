@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bng3rbrjwsmuj"]
 
 [ext_resource type="Script" uid="uid://2i220wo56y7h" path="res://Scenes/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://dkq05t048f26q" path="res://Assests/ASKUA.png" id="2_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://dkq05t048f26q" path="res://Assests/temp player.png" id="2_6t5aa"]
 [ext_resource type="Script" uid="uid://bwf5ufgs75r22" path="res://Scenes/shooting.gd" id="3_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://cjm70v4rayxv6" path="res://Scenes/bullet.tscn" id="4_vgqql"]
 

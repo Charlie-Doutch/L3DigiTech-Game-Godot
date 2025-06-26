@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7073x2ekov5e"
-path="res://.godot/imported/space invaders enemies-9.png.png-65613847492d235a4c1b7cf016b72c10.ctex"
+uid="uid://cwrnffmn22ttx"
+path="res://.godot/imported/enemy3-1.png-72da423b2f9a485ecb47909fd8e05530.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/space invaders enemies-9.png.png"
-dest_files=["res://.godot/imported/space invaders enemies-9.png.png-65613847492d235a4c1b7cf016b72c10.ctex"]
+source_file="res://Assests/enemy3-1.png"
+dest_files=["res://.godot/imported/enemy3-1.png-72da423b2f9a485ecb47909fd8e05530.ctex"]
 
 [params]
 
