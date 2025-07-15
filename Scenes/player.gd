@@ -4,6 +4,7 @@ extends Area2D
 var direction = Vector2.ZERO
 
 @onready var player_collision_rect: CollisionShape2D = $CollisionShape2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var bound_box_x
 var start_bound
@@ -37,3 +38,11 @@ func _process(delta):
 		return
 	
 	position.x += delta_movement
+	
+func on_player_hit():
+	player_collision_rect.disabled = true
+	animation_player.play("hit")
+	
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "hit":
+		player_collision_rect.disabled = false
