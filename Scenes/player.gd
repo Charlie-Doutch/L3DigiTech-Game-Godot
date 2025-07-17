@@ -1,6 +1,10 @@
 extends Area2D
 
+class_name Player
+
 @export var player_speed = 250
+@export var player_health = 3
+
 var direction = Vector2.ZERO
 
 @onready var player_collision_rect: CollisionShape2D = $CollisionShape2D
@@ -40,9 +44,14 @@ func _process(delta):
 	position.x += delta_movement
 	
 func on_player_hit():
-	player_collision_rect.disabled = true
+	player_collision_rect.call_deferred("set_disabled", true)
+	var shooting = get_node("ShootingOrigin")
+	shooting.can_shoot = false
+	player_health -= 1
 	animation_player.play("hit")
 	
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "hit":
-		player_collision_rect.disabled = false
+		player_collision_rect.call_deferred("set_disabled", false)
+		var shooting = get_node("ShootingOrigin")
+		shooting.can_shoot = true

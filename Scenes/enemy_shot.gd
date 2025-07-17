@@ -11,3 +11,8 @@ func _ready():
 
 func _process(delta):
 	position.y += speed * delta
+
+func _on_area_entered(area):
+	if area is Player:
+		(area as Player).on_player_hit()
+		queue_free()
