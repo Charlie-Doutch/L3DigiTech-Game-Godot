@@ -2,6 +2,10 @@ extends Node2D
 
 class_name EnemySpawn
 
+signal enemy_destroyed(points: int)
+signal wave_won
+signal game_lost
+
 # configuration/way the enemies spawn
 const ROWS = 5
 const COLUMNS = 11
@@ -17,6 +21,9 @@ const ENEMY_Y_POS_INCREMENT = 30
 var movement_direction = 1
 
 var enemy_shot_scene = preload("res://Scenes/enemy_shot.tscn")
+
+var enemies_destroyed = 0
+var enemy_total = ROWS * COLUMNS
 
 # node references
 @onready var move_timer = $MoveTimer
@@ -58,6 +65,7 @@ func spawn_enemy(enemy_config, spawn_pos: Vector2):
 	var enemy = enemy_scene.instantiate() as Enemy
 	enemy.config = enemy_config
 	enemy.global_position = spawn_pos
+	enemy.on_enemy_destroyed.connect(on_enemy_destroyed)
 	add_child(enemy)
 
 func enemy_move():
@@ -80,3 +88,13 @@ func on_enemy_shot():
 	var enemy_shot = enemy_shot_scene.instantiate() as EnemyShot
 	enemy_shot.global_position = random_child_pos
 	get_tree().root.add_child(enemy_shot)
+
+func on_enemy_destroyed(points: int):
+	enemy_destroyed.emit(points)
+	enemies_destroyed += 1
+	
+	if enemies_destroyed == enemy_total:
+		wave_won.emit()
+		shot_timer.stop()
+		move_timer.stop()
+		movement_direction = 0

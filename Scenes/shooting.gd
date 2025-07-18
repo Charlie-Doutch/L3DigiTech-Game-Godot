@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var bullet_scene: PackedScene
-@export var fire_rate := 5.0  # bullets per second
+@export var fire_rate := 1.0  # bullets per second
 @export var can_shoot = true
 
 var time_between_shots := 1.0 / fire_rate
