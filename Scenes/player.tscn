@@ -1,9 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bng3rbrjwsmuj"]
+[gd_scene load_steps=14 format=3 uid="uid://bng3rbrjwsmuj"]
 
 [ext_resource type="Script" uid="uid://2i220wo56y7h" path="res://Scenes/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://dknfbvcsh4rbf" path="res://Assests/player.png" id="2_vgqql"]
 [ext_resource type="Script" uid="uid://bwf5ufgs75r22" path="res://Scenes/shooting.gd" id="3_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://cjm70v4rayxv6" path="res://Scenes/bullet.tscn" id="4_vgqql"]
+[ext_resource type="Texture2D" uid="uid://c5wfntovbsrqh" path="res://Assests/enemy destroy1.png" id="5_8erm5"]
+[ext_resource type="Texture2D" uid="uid://7073x2ekov5e" path="res://Assests/enemy destroy2.png" id="6_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://dnxuv5d4gsix6" path="res://Assests/enemy destroy3.png" id="7_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://dyk852loviak8" path="res://Assests/enemy destroy4.png" id="8_gymyn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vgqql"]
 size = Vector2(28, 10.5)
@@ -39,9 +43,26 @@ tracks/0/keys = {
 "values": [null, ExtResource("2_vgqql"), null, ExtResource("2_vgqql"), null, ExtResource("2_vgqql")]
 }
 
+[sub_resource type="Animation" id="Animation_pu2lt"]
+resource_name = "destroyed"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_8erm5"), ExtResource("6_f1ek2"), ExtResource("7_tx1dd"), ExtResource("8_gymyn")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x3wgy"]
 _data = {
 &"RESET": SubResource("Animation_fkybt"),
+&"destroyed": SubResource("Animation_pu2lt"),
 &"hit": SubResource("Animation_vgqql")
 }
 

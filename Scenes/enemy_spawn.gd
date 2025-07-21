@@ -7,8 +7,8 @@ signal wave_won
 signal game_lost
 
 # configuration/way the enemies spawn
-const ROWS = 5
-const COLUMNS = 11
+const ROWS = 2
+const COLUMNS = 3
 const HORIZONTAL_SPACING = 70
 const VERTICAL_SPACING = 60
 const ENEMY_HEIGHT = 24
@@ -83,18 +83,30 @@ func _on_right_wall_area_entered(area):
 		movement_direction *= -1
 
 func on_enemy_shot():
-	var random_child_pos = get_children().filter(func (child ): return child is Enemy).map(func (enemy): return enemy.global_position).pick_random()
-	
-	var enemy_shot = enemy_shot_scene.instantiate() as EnemyShot
-	enemy_shot.global_position = random_child_pos
-	get_tree().root.add_child(enemy_shot)
+	if enemies_destroyed < enemy_total:
+		# Get all enemies in the children
+		var enemies = get_children().filter(func(child): return child is Enemy)
+		
+		# Only shoot if there are enemies present
+		if enemies.size() > 0:
+			# Pick a random enemy's global position
+			var random_enemy = enemies.pick_random()
+			var enemy_shot = enemy_shot_scene.instantiate() as EnemyShot
+			enemy_shot.global_position = random_enemy.global_position
+			get_tree().root.add_child(enemy_shot)
+		else:
+			# No enemies to shoot from, do nothing or handle accordingly
+			pass
+	else:
+		pass
 
-# func on_enemy_destroyed(points: int):
-	# enemy_destroyed.emit(points)
-	# enemies_destroyed += 1
+
+func on_enemy_destroyed(points: int):
+	enemy_destroyed.emit(points)
+	enemies_destroyed += 1
 	
-	# if enemies_destroyed == enemy_total:
-		# wave_won.emit()
-		# shot_timer.stop()
-		# move_timer.stop()
-		# movement_direction = 0
+	if enemies_destroyed == enemy_total:
+		wave_won.emit()
+		shot_timer.stop()
+		move_timer.stop()
+		movement_direction = 0
