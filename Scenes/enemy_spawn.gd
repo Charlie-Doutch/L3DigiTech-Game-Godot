@@ -65,7 +65,7 @@ func spawn_enemy(enemy_config, spawn_pos: Vector2):
 	var enemy = enemy_scene.instantiate() as Enemy
 	enemy.config = enemy_config
 	enemy.global_position = spawn_pos
-	enemy.on_enemy_destroyed.connect(on_enemy_destroyed)
+	# enemy.on_enemy_destroyed.connect(on_enemy_destroyed)
 	add_child(enemy)
 
 func enemy_move():
@@ -89,12 +89,12 @@ func on_enemy_shot():
 	enemy_shot.global_position = random_child_pos
 	get_tree().root.add_child(enemy_shot)
 
-func on_enemy_destroyed(points: int):
-	enemy_destroyed.emit(points)
-	enemies_destroyed += 1
+# func on_enemy_destroyed(points: int):
+	# enemy_destroyed.emit(points)
+	# enemies_destroyed += 1
 	
-	if enemies_destroyed == enemy_total:
-		wave_won.emit()
-		shot_timer.stop()
-		move_timer.stop()
-		movement_direction = 0
+	# if enemies_destroyed == enemy_total:
+		# wave_won.emit()
+		# shot_timer.stop()
+		# move_timer.stop()
+		# movement_direction = 0

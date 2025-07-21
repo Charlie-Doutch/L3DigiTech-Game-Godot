@@ -13,8 +13,6 @@ func _ready():
 	sprite.texture = config.sprite_1
 	animation_player.play(config.animation_name)
 
-
-
 func _on_area_entered(area):
 	if area is Bullet:
 		animation_player.play("destroyed")

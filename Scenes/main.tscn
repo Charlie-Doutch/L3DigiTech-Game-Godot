@@ -1,10 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8n0dqgx6xiu1"]
+[gd_scene load_steps=5 format=3 uid="uid://c8n0dqgx6xiu1"]
 
 [ext_resource type="PackedScene" uid="uid://bng3rbrjwsmuj" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://bw3j0gwewup6c" path="res://Scenes/enemy_spawn.tscn" id="2_bo1nx"]
-[ext_resource type="PackedScene" uid="uid://cjm70v4rayxv6" path="res://Scenes/bullet.tscn" id="3_kry3j"]
-[ext_resource type="PackedScene" uid="uid://baggamyd0kj0j" path="res://Scenes/enemy.tscn" id="4_21xkr"]
-[ext_resource type="PackedScene" uid="uid://cxtrdym7muafi" path="res://Scenes/enemy_shot.tscn" id="5_6bp64"]
 [ext_resource type="Script" uid="uid://d8yu5y15v6y8" path="res://Scenes/points_counter.gd" id="6_21xkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bo1nx"]
@@ -17,8 +14,6 @@ position = Vector2(-1, 392)
 scale = Vector2(4, 4)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="EnemySpawn" parent="." instance=ExtResource("2_bo1nx")]
 
 [node name="Walls" type="Node" parent="."]
 
@@ -39,11 +34,7 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
 shape = SubResource("RectangleShape2D_bo1nx")
 
-[node name="Bullet" parent="." instance=ExtResource("3_kry3j")]
-
-[node name="Enemy" parent="." instance=ExtResource("4_21xkr")]
-
-[node name="EnemyShot" parent="." instance=ExtResource("5_6bp64")]
+[node name="EnemySpawn" parent="." instance=ExtResource("2_bo1nx")]
 
 [node name="PointsCounter" type="Node" parent="."]
 script = ExtResource("6_21xkr")

@@ -9,7 +9,8 @@ var points = 0
 @onready var enemy_spawn = $"./EnemySpawn" as EnemySpawn
 
 func _ready():
-	enemy_spawn.enemy_destroyed.connect(increase_points)
+	pass
+	# enemy_spawn.on_enemy_destroyed.connect(increase_points)
 
 func increase_points(points_to_add: int):
 	points += points_to_add
