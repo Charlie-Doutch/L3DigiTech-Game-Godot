@@ -7,8 +7,8 @@ signal wave_won
 signal game_lost
 
 # configuration/way the enemies spawn
-const ROWS = 2
-const COLUMNS = 3
+const ROWS = 5
+const COLUMNS = 11
 const HORIZONTAL_SPACING = 70
 const VERTICAL_SPACING = 60
 const ENEMY_HEIGHT = 24

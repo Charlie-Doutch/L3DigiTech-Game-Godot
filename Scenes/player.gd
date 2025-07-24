@@ -5,6 +5,8 @@ class_name Player
 @export var player_speed = 250
 @export var player_health = 3
 
+signal player_health_changed (new_health)
+
 var direction = Vector2.ZERO
 
 @onready var player_collision_rect: CollisionShape2D = $CollisionShape2D
@@ -21,8 +23,8 @@ func _ready():
 	var camera = get_viewport().get_camera_2d()
 	var camera_pos = camera.position
 	
-	start_bound = (camera_pos.x - screen_rect.size.x)/2
-	end_bound = (camera_pos.x + screen_rect.size.x)/2
+	start_bound = (camera_pos.x - screen_rect.size.x)/2 - 50
+	end_bound = (camera_pos.x + screen_rect.size.x)/2 +50
 
 func _process(delta):
 	var input = Input.get_axis("move_left", "move_right")
@@ -46,19 +48,20 @@ func _process(delta):
 func on_player_hit():
 	if player_health > 1:
 		player_collision_rect.call_deferred("set_disabled", true)
+		player_health -= 1
 		var shooting = get_node("ShootingOrigin")
 		shooting.can_shoot = false
 		animation_player.play("hit")
-	if player_health == 1:
+	if player_health == 0:
 		player_speed = 0
 		var shooting = get_node("ShootingOrigin")
 		shooting.can_shoot = false
 		animation_player.play("destroyed")
-		get_tree().change_scene_to_file("res://Scenes/flashcard.tscn")
+		# get_tree().change_scene_to_file("res://Scenes/flashcard.tscn")
+	emit_signal("player_health_changed", player_health)
 	
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "hit":
-		player_health -= 1
 		player_collision_rect.call_deferred("set_disabled", false)
 		var shooting = get_node("ShootingOrigin")
 		shooting.can_shoot = true

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dt8puw7eukwl0" path="res://Assests/player bullet.png" id="1_xjght"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycag2"]
-size = Vector2(2, 17)
+size = Vector2(4, 34)
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 2
@@ -12,7 +12,7 @@ collision_mask = 5
 script = ExtResource("1_oduel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_xjght")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

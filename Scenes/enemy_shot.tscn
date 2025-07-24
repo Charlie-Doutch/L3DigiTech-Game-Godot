@@ -4,18 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://d017derv4qcc4" path="res://Assests/enemy bullet.png" id="1_vm7pl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eptq7"]
-size = Vector2(40, 340)
+size = Vector2(80, 680)
 
 [node name="EnemyShot" type="Area2D"]
 collision_layer = 8
 script = ExtResource("1_eptq7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_vm7pl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.77636e-15, 0)
+position = Vector2(5.96046e-08, 4.76837e-07)
 scale = Vector2(0.05, 0.05)
 shape = SubResource("RectangleShape2D_eptq7")
 

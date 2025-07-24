@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8n0dqgx6xiu1"]
+[gd_scene load_steps=6 format=3 uid="uid://c8n0dqgx6xiu1"]
 
 [ext_resource type="PackedScene" uid="uid://bng3rbrjwsmuj" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://bw3j0gwewup6c" path="res://Scenes/enemy_spawn.tscn" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://dugwir88x7bpn" path="res://Scenes/player_health_label.gd" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://d8yu5y15v6y8" path="res://Scenes/points_counter.gd" id="6_21xkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bo1nx"]
@@ -23,7 +24,6 @@ collision_layer = 16
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
-position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_bo1nx")
 
 [node name="RightWall" type="Area2D" parent="Walls"]
@@ -38,6 +38,13 @@ shape = SubResource("RectangleShape2D_bo1nx")
 
 [node name="PointsCounter" type="Node" parent="."]
 script = ExtResource("6_21xkr")
+
+[node name="Health" type="Label" parent="."]
+offset_left = -769.0
+offset_top = -435.0
+offset_right = -627.0
+offset_bottom = -351.0
+script = ExtResource("4_jjvhh")
 
 [connection signal="area_entered" from="Walls/LeftWall" to="EnemySpawn" method="_on_left_wall_area_entered"]
 [connection signal="area_entered" from="Walls/RightWall" to="EnemySpawn" method="_on_right_wall_area_entered"]
