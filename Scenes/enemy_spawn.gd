@@ -2,13 +2,11 @@ extends Node2D
 
 class_name EnemySpawn
 
-signal enemy_destroyed(points: int)
 signal wave_won
-signal game_lost
 
 # configuration/way the enemies spawn
-const ROWS = 5
-const COLUMNS = 11
+const ROWS = 2
+const COLUMNS = 2
 const HORIZONTAL_SPACING = 70
 const VERTICAL_SPACING = 60
 const ENEMY_HEIGHT = 24
@@ -22,6 +20,9 @@ var movement_direction = 1
 
 var enemy_shot_scene = preload("res://Scenes/enemy_shot.tscn")
 
+@onready var player: Player = $"../Player"
+@onready var player_scene = preload("res://Scenes/player.tscn")
+
 var enemies_destroyed = 0
 var enemy_total = ROWS * COLUMNS
 
@@ -31,9 +32,15 @@ var enemy_total = ROWS * COLUMNS
 
 
 func _ready():
+	var enemy = get_node("res://Scenes/enemy.tscn")
+	var m_enemy_scene = preload("res://Scenes/enemy.tscn")
+	enemy.connect("on_enemy_destroyed", self.on_enemy_destroyed)
+	
 	# set up timers
 	move_timer.timeout.connect(enemy_move)
 	shot_timer.timeout.connect(on_enemy_shot)
+	
+	player.connect("game_over", self.on_player_dead)
 	
 	var enemy_1_res = preload("res://Resources/enemy_1.tres")
 	var enemy_2_res = preload("res://Resources/enemy_2.tres")
@@ -100,13 +107,16 @@ func on_enemy_shot():
 	else:
 		pass
 
-
-func on_enemy_destroyed(points: int):
-	enemy_destroyed.emit(points)
+func on_enemy_destroyed():
 	enemies_destroyed += 1
-	
+	print("dead")
 	if enemies_destroyed == enemy_total:
-		wave_won.emit()
+		emit_signal("wave_won")
 		shot_timer.stop()
 		move_timer.stop()
 		movement_direction = 0
+
+func on_player_dead():
+	shot_timer.stop()
+	move_timer.stop()
+	movement_direction = 0

@@ -6,6 +6,7 @@ class_name Player
 @export var player_health = 3
 
 signal player_health_changed (new_health)
+signal game_over
 
 var direction = Vector2.ZERO
 
@@ -46,13 +47,14 @@ func _process(delta):
 	position.x += delta_movement
 	
 func on_player_hit():
-	if player_health > 1:
+	if player_health >= 1:
 		player_collision_rect.call_deferred("set_disabled", true)
 		player_health -= 1
 		var shooting = get_node("ShootingOrigin")
 		shooting.can_shoot = false
 		animation_player.play("hit")
 	if player_health == 0:
+		emit_signal("game_over")
 		player_speed = 0
 		var shooting = get_node("ShootingOrigin")
 		shooting.can_shoot = false

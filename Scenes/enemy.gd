@@ -4,7 +4,7 @@ class_name Enemy
 
 var config: Resource
 
-signal on_enemy_destroyed(points: int)
+signal on_enemy_destroyed
 
 @onready var sprite = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -22,4 +22,4 @@ func _on_area_entered(area):
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "destroyed":
 		queue_free()
-		on_enemy_destroyed.emit(config.points)
+		emit_signal("on_enemy_destroyed")
