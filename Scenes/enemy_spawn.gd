@@ -5,8 +5,8 @@ class_name EnemySpawn
 signal wave_won
 
 # configuration/way the enemies spawn
-const ROWS = 2
-const COLUMNS = 2
+const ROWS = 1
+const COLUMNS = 1
 const HORIZONTAL_SPACING = 70
 const VERTICAL_SPACING = 60
 const ENEMY_HEIGHT = 24
@@ -34,7 +34,7 @@ var enemy_total = ROWS * COLUMNS
 func _ready():
 	var enemy = get_node("res://Scenes/enemy.tscn")
 	var m_enemy_scene = preload("res://Scenes/enemy.tscn")
-	enemy.connect("on_enemy_destroyed", self.on_enemy_destroyed)
+	# enemy.connect("on_enemy_destroyed", self.on_enemy_destroyed)
 	
 	# set up timers
 	move_timer.timeout.connect(enemy_move)
@@ -72,7 +72,7 @@ func spawn_enemy(enemy_config, spawn_pos: Vector2):
 	var enemy = enemy_scene.instantiate() as Enemy
 	enemy.config = enemy_config
 	enemy.global_position = spawn_pos
-	# enemy.on_enemy_destroyed.connect(on_enemy_destroyed)
+	enemy.on_enemy_destroyed.connect(on_enemy_destroyed)
 	add_child(enemy)
 
 func enemy_move():

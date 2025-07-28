@@ -4,6 +4,7 @@ class_name Player
 
 @export var player_speed = 250
 @export var player_health = 3
+var player_old_health = player_health
 
 signal player_health_changed (new_health)
 signal game_over
@@ -53,14 +54,20 @@ func on_player_hit():
 		var shooting = get_node("ShootingOrigin")
 		shooting.can_shoot = false
 		animation_player.play("hit")
+		on_player_health_changed()
 	if player_health == 0:
 		emit_signal("game_over")
 		player_speed = 0
 		var shooting = get_node("ShootingOrigin")
 		shooting.can_shoot = false
 		animation_player.play("destroyed")
+		on_player_health_changed()
 		# get_tree().change_scene_to_file("res://Scenes/flashcard.tscn")
-	emit_signal("player_health_changed", player_health)
+
+func on_player_health_changed():
+	if player_old_health != player_health:
+			emit_signal("player_health_changed", player_health)
+			player_old_health = player_health
 	
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "hit":

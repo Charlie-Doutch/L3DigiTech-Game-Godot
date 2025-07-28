@@ -10,6 +10,10 @@ var last_shot_time := 0.0
 func _ready():
 	last_shot_time = -time_between_shots  # allow immediate first shot
 
+func set_fire_rate(new_rate: float):
+	fire_rate = new_rate
+	time_between_shots = 1.0 / fire_rate
+
 func _input(_event):
 	if Input.is_action_pressed("shoot") and can_shoot:
 		var current_time = Time.get_ticks_msec() / 1000.0  # convert ms to seconds
