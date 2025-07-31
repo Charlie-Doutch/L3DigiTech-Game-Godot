@@ -30,12 +30,7 @@ var enemy_total = ROWS * COLUMNS
 @onready var move_timer = $MoveTimer
 @onready var shot_timer = $ShotTimer
 
-
 func _ready():
-	var enemy = get_node("res://Scenes/enemy.tscn")
-	var m_enemy_scene = preload("res://Scenes/enemy.tscn")
-	# enemy.connect("on_enemy_destroyed", self.on_enemy_destroyed)
-	
 	# set up timers
 	move_timer.timeout.connect(enemy_move)
 	shot_timer.timeout.connect(on_enemy_shot)
@@ -71,6 +66,7 @@ func _ready():
 func spawn_enemy(enemy_config, spawn_pos: Vector2):
 	var enemy = enemy_scene.instantiate() as Enemy
 	enemy.config = enemy_config
+	enemy_config = load("res://Resources/enemy_config.gd")
 	enemy.global_position = spawn_pos
 	enemy.on_enemy_destroyed.connect(on_enemy_destroyed)
 	add_child(enemy)
@@ -108,10 +104,12 @@ func on_enemy_shot():
 		pass
 
 func on_enemy_destroyed():
+	var enemy = enemy_scene.instantiate() as Enemy
 	enemies_destroyed += 1
 	print("dead")
 	if enemies_destroyed == enemy_total:
 		emit_signal("wave_won")
+		spawn_enemy(enemy.config, enemy.global_position)
 		shot_timer.stop()
 		move_timer.stop()
 		movement_direction = 0

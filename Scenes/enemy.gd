@@ -10,8 +10,11 @@ signal on_enemy_destroyed
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready():
-	sprite.texture = config.sprite_1
-	animation_player.play(config.animation_name)
+	if config:
+		sprite.texture = config.sprite_1
+		animation_player.play(config.animation_name)
+	else:
+		push_warning("Enemy config not set!")
 
 func _on_area_entered(area):
 	if area is Bullet:

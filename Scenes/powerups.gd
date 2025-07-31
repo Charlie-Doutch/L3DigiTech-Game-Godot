@@ -12,7 +12,7 @@ func _ready():
 	print(shooting.fire_rate)
 
 func give_powerup():
-	var powerup = 1
+	var powerup = randi() % 3
 	if powerup == 0:
 		print(powerup)
 		var player = get_node("..")
