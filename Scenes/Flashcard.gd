@@ -1,5 +1,9 @@
 extends MarginContainer
 
+var correct_answers = 0
+
+signal flashcards_done
+
 # Dictionary of words and their japanese counterparts
 var words1 = {
 	"Hello": "こんにちは",
@@ -73,9 +77,12 @@ func _on_submit_pressed():
 	
 	if user_answer == correct_answer:
 		$ResultLabel.text = "Correct!"
+		correct_answers += 1
 	else:
 		$ResultLabel.text = "Wrong! Correct answer: %s" % correct_answer
 	
-	# Ask next question after a short delay
-	await get_tree().create_timer(3).timeout
-	ask_question()
+	if correct_answers == 3:
+		emit_signal("flashcards_done")
+	if correct_answers > 3:
+		await get_tree().create_timer(3).timeout
+		ask_question()

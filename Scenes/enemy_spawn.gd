@@ -4,7 +4,6 @@ class_name EnemySpawn
 
 signal wave_won
 
-# configuration/way the enemies spawn
 var rows = 0
 var columns = 0
 const HORIZONTAL_SPACING = 70
@@ -28,7 +27,6 @@ var enemy_total = rows * columns
 
 var wave = 0
 
-# node references
 @onready var move_timer = $MoveTimer
 @onready var shot_timer = $ShotTimer
 
@@ -44,15 +42,12 @@ func spawn_wave():
 	enemies_destroyed = 0
 	enemy_total = 0
 	position = Vector2(0,0)
-	
-	# Pick a random initial movement direction: -1 (left) or 1 (right)
+
 	movement_direction = [1, -1].pick_random()
-	
-	# Restart timers
+
 	move_timer.start()
 	shot_timer.start()
-	
-	# Clear previous enemies
+
 	for child in get_children():
 		if child is Enemy:
 			child.queue_free()
@@ -68,6 +63,11 @@ func spawn_wave():
 	
 	rows = randi_range(wave, max_rows)
 	columns = randi_range(wave, max_columns)
+	
+	if rows > 7:
+		rows = 7
+	if columns > 15:
+		columns = 15
 	
 	for row in range(rows):
 		if row == 0:
@@ -114,18 +114,16 @@ func _on_right_wall_area_entered(_area):
 
 func on_enemy_shot():
 	if enemies_destroyed < enemy_total:
-		# Get all enemies in the children
 		var enemies = get_children().filter(func(child): return child is Enemy)
-		
-		# Only shoot if there are enemies present
 		if enemies.size() > 0:
-			# Pick a random enemy's global position
 			var random_enemy = enemies.pick_random()
 			var enemy_shot = enemy_shot_scene.instantiate() as EnemyShot
+			enemy_shot.speed += wave * wave * 10
+			if enemy_shot.speed > 700:
+				enemy_shot.speed = 700
 			enemy_shot.global_position = random_enemy.global_position
 			get_tree().root.add_child(enemy_shot)
 		else:
-			# No enemies to shoot from, do nothing or handle accordingly
 			pass
 	else:
 		pass
@@ -138,7 +136,7 @@ func on_enemy_destroyed():
 		emit_signal("wave_won", wave)
 		shot_timer.stop()
 		move_timer.stop()
-		await get_tree().create_timer(1.0).timeout  # Optional: delay before next wave
+		await get_tree().create_timer(1.0).timeout
 		spawn_wave()
 
 func on_player_dead():

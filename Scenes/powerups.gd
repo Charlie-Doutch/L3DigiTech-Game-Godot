@@ -14,18 +14,12 @@ func _ready():
 func give_powerup(_wave):
 	var powerup = randi() % 3
 	if powerup == 0:
-		print(powerup)
 		var player = get_node("..")
 		player.player_speed += 250
-		print(player.player_speed)
 	if powerup == 1:
-		print(powerup)
 		var player = get_node("..")
 		player.player_health += 2
 		player.on_player_health_changed()
-		print(player.player_health)
 	if powerup == 2:
-		print(powerup)
 		var shooting = get_node("../ShootingOrigin")
 		shooting.set_fire_rate(shooting.fire_rate + 2.0)
-		print(shooting.fire_rate)
