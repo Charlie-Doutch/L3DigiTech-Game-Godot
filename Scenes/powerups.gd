@@ -11,7 +11,7 @@ func _ready():
 	print(player.player_health)
 	print(shooting.fire_rate)
 
-func give_powerup():
+func give_powerup(_wave):
 	var powerup = randi() % 3
 	if powerup == 0:
 		print(powerup)

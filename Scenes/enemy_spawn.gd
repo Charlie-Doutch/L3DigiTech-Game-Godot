@@ -5,8 +5,8 @@ class_name EnemySpawn
 signal wave_won
 
 # configuration/way the enemies spawn
-const ROWS = 2
-const COLUMNS = 2
+var rows = 0
+var columns = 0
 const HORIZONTAL_SPACING = 70
 const VERTICAL_SPACING = 60
 const ENEMY_HEIGHT = 24
@@ -14,8 +14,8 @@ const ENEMY_HEIGHT = 24
 var enemy_scene
 const START_Y_POS = -350
 
-const ENEMY_X_POS_INCREMENT = 15
-const ENEMY_Y_POS_INCREMENT = 30
+var enemy_x_pos_increment = 10
+var enemy_y_pos_increment = 28
 var movement_direction = 1
 
 var enemy_shot_scene = preload("res://Scenes/enemy_shot.tscn")
@@ -24,7 +24,7 @@ var enemy_shot_scene = preload("res://Scenes/enemy_shot.tscn")
 @onready var player_scene = preload("res://Scenes/player.tscn")
 
 var enemies_destroyed = 0
-var enemy_total = ROWS * COLUMNS
+var enemy_total = rows * columns
 
 var wave = 0
 
@@ -43,6 +43,7 @@ func _ready():
 func spawn_wave():
 	enemies_destroyed = 0
 	enemy_total = 0
+	position = Vector2(0,0)
 	
 	# Pick a random initial movement direction: -1 (left) or 1 (right)
 	movement_direction = [1, -1].pick_random()
@@ -62,7 +63,13 @@ func spawn_wave():
 	
 	var enemy_config
 	
-	for row in ROWS:
+	var max_rows = wave + 2
+	var max_columns = wave + 3
+	
+	rows = randi_range(wave, max_rows)
+	columns = randi_range(wave, max_columns)
+	
+	for row in range(rows):
 		if row == 0:
 			enemy_config = enemy_1_res
 		elif row == 1 or row == 2:
@@ -70,11 +77,11 @@ func spawn_wave():
 		elif row == 3 or row == 4:
 			enemy_config = enemy_3_res
 		
-		var row_width = (COLUMNS * enemy_config.width / 2) + ((COLUMNS - 1) * HORIZONTAL_SPACING)
+		var row_width = (columns * enemy_config.width / 2) + ((columns - 1) * HORIZONTAL_SPACING)
 		
 		var start_x = position.x - row_width / 2
 		
-		for col in COLUMNS:
+		for col in range(columns):
 			var x = start_x + (col * enemy_config.width / 2) + (col * HORIZONTAL_SPACING)
 			var y = START_Y_POS + (row * ENEMY_HEIGHT) + (row * VERTICAL_SPACING)
 			var spawn_pos = Vector2(x, y)
@@ -87,23 +94,22 @@ func spawn_wave():
 func spawn_enemy(enemy_config, spawn_pos: Vector2):
 	var enemy = enemy_scene.instantiate() as Enemy
 	enemy.config = enemy_config
-	enemy_config = load("res://Resources/enemy_config.gd")
 	enemy.global_position = spawn_pos
 	enemy.on_enemy_destroyed.connect(on_enemy_destroyed)
 	add_child(enemy)
 
 func enemy_move():
-	position.x += ENEMY_X_POS_INCREMENT * movement_direction
+	position.x += (wave * 2 + enemy_x_pos_increment) * movement_direction
 
-func _on_left_wall_area_entered(area):
+func _on_left_wall_area_entered(_area):
 	if (movement_direction == -1):
-		position.y += ENEMY_Y_POS_INCREMENT
+		position.y += enemy_y_pos_increment + wave
 		movement_direction *= -1
 
 
-func _on_right_wall_area_entered(area):
+func _on_right_wall_area_entered(_area):
 	if (movement_direction == 1):
-		position.y += ENEMY_Y_POS_INCREMENT
+		position.y += enemy_y_pos_increment + wave
 		movement_direction *= -1
 
 func on_enemy_shot():

@@ -20,6 +20,9 @@ func _on_area_entered(area):
 	if area is Bullet:
 		animation_player.play("destroyed")
 		area.queue_free()
+	if area is Player:
+		(area as Player).on_player_hit()
+		queue_free()
 
 
 func _on_animation_player_animation_finished(anim_name):
