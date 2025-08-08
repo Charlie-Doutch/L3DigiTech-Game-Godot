@@ -82,7 +82,9 @@ func _on_submit_pressed():
 		$ResultLabel.text = "Wrong! Correct answer: %s" % correct_answer
 	
 	if correct_answers == 3:
+		await get_tree().create_timer(3).timeout
 		emit_signal("flashcards_done")
-	if correct_answers > 3:
+		correct_answers = 0
+	if correct_answers < 3:
 		await get_tree().create_timer(3).timeout
 		ask_question()

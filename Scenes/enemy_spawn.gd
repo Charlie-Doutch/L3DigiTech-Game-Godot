@@ -136,8 +136,6 @@ func on_enemy_destroyed():
 		emit_signal("wave_won", wave)
 		shot_timer.stop()
 		move_timer.stop()
-		await get_tree().create_timer(1.0).timeout
-		spawn_wave()
 
 func on_player_dead():
 	shot_timer.stop()

@@ -13,6 +13,7 @@ var direction = Vector2.ZERO
 
 @onready var player_collision_rect: CollisionShape2D = $CollisionShape2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var main = $"../../main"
 
 var bound_box_x
 var start_bound
@@ -29,40 +30,41 @@ func _ready():
 	end_bound = (camera_pos.x + screen_rect.size.x)/2 +50
 
 func _process(delta):
-	var input = Input.get_axis("move_left", "move_right")
-	
-	if input > 0:
-		direction = Vector2.RIGHT
-	elif input < 0:
-		direction = Vector2.LEFT
-	else:
-		direction = Vector2.ZERO
-	
-	var delta_movement = player_speed*delta*direction.x
-	
-	# Check to see if player is attempting to move out of bounds
-	if (position.x + delta_movement < start_bound + bound_box_x*transform.get_scale().x || 
-		position.x + delta_movement > end_bound - bound_box_x*transform.get_scale().x):
-		return
-	
-	position.x += delta_movement
-	
+	if main.gamestate == 1:
+		var input = Input.get_axis("move_left", "move_right")
+		
+		if input > 0:
+			direction = Vector2.RIGHT
+		elif input < 0:
+			direction = Vector2.LEFT
+		else:
+			direction = Vector2.ZERO
+		
+		var delta_movement = player_speed*delta*direction.x
+		
+		# Check to see if player is attempting to move out of bounds
+		if (position.x + delta_movement < start_bound + bound_box_x*transform.get_scale().x || 
+			position.x + delta_movement > end_bound - bound_box_x*transform.get_scale().x):
+			return
+		
+		position.x += delta_movement
+
 func on_player_hit():
-	if player_health >= 1:
-		player_collision_rect.call_deferred("set_disabled", true)
-		player_health -= 1
-		var shooting = get_node("ShootingOrigin")
-		shooting.can_shoot = false
-		animation_player.play("hit")
-		on_player_health_changed()
-	if player_health == 0:
-		emit_signal("game_over")
-		player_speed = 0
-		var shooting = get_node("ShootingOrigin")
-		shooting.can_shoot = false
-		animation_player.play("destroyed")
-		on_player_health_changed()
-		# get_tree().change_scene_to_file("res://Scenes/flashcard.tscn")
+	if main.gamestate == 1:
+		if player_health >= 1:
+			player_collision_rect.call_deferred("set_disabled", true)
+			player_health -= 1
+			var shooting = get_node("ShootingOrigin")
+			shooting.can_shoot = false
+			animation_player.play("hit")
+			on_player_health_changed()
+		if player_health == 0:
+			emit_signal("game_over")
+			player_speed = 0
+			var shooting = get_node("ShootingOrigin")
+			shooting.can_shoot = false
+			animation_player.play("destroyed")
+			on_player_health_changed()
 
 func on_player_health_changed():
 	if player_old_health != player_health:
