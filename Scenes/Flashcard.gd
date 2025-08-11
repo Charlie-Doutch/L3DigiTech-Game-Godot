@@ -4,22 +4,11 @@ var correct_answers = 0
 
 signal flashcards_done
 
-# Dictionary of words and their japanese counterparts
-var words1 = {
-	"Hello": "こんにちは",
-	"You": "あなた",
-	"Summer": "なつ",
-	"Milk": "ミルク"
-}
+var level1 = preload("res://Resources/level1_list.gd").list1
+var level2 = preload("res://Resources/level2_list.gd").list2
+var level3 = preload("res://Resources/level3_list.gd").list3
 
-var words2 = {
-	"こんにちは": "hello",
-	"あなた": "you",
-	"なつ": "summer",
-	"ミルク": "milk"
-}
-
-var words = {}
+var list = {}
 var current_word = ""
 
 # Called when the node enters the scene tree
@@ -38,9 +27,11 @@ func _on_confirm_pressed():
 	var SelectedList = $ListSelect.text
 	
 	if SelectedList == "1":
-		words = words1
+		list = words1
 	elif SelectedList == "2":
-		words = words2
+		list = words2
+	elif SelectedList == "3":
+		list = list3
 	else:
 		$ResultLabel.text = "Invalid list number. Enter 1 or 2."
 		$ResultLabel.visible = true
@@ -61,7 +52,7 @@ func _on_confirm_pressed():
 
 # Function to ask a new word question
 func ask_question():
-	var word_keys = words.keys()
+	var word_keys = list.keys()
 	var random_index = randi() % word_keys.size()
 	current_word = word_keys[random_index]
 	
@@ -73,7 +64,7 @@ func ask_question():
 # Called when the submit button is pressed
 func _on_submit_pressed():
 	var user_answer = $AnswerInput.text.strip_edges().to_lower()
-	var correct_answer = words[current_word]
+	var correct_answer = list[current_word]
 	
 	if user_answer == correct_answer:
 		$ResultLabel.text = "Correct!"
