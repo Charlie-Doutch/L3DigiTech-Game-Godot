@@ -2,6 +2,8 @@ extends MarginContainer
 
 var correct_answers = 0
 
+signal list_chosen
+
 signal flashcards_done
 
 var list1 = {
@@ -926,9 +928,8 @@ func _on_confirm_pressed():
 	$QuestionLabel.visible = true
 	$AnswerInput.visible = true
 	$ResultLabel.visible = true
-
-	ask_question()
-
+	
+	emit_signal("list_chosen")
 
 # Function to ask a new word question
 func ask_question():

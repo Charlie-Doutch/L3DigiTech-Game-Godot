@@ -12,6 +12,7 @@ extends Node
 func _ready():
 	enemy.connect("wave_won", self.flashcards)
 	flashcard_node.connect("flashcards_done", self.cards_done)
+	flashcard_node.connect("list_chosen", self.start_game)
 	flashcards(enemy.wave)
 	flashcard_node.visible = false
 	enemy.visible = true
@@ -19,6 +20,9 @@ func _ready():
 	health_label.visible = true
 	wave_label.visible = true
 	gamestate = 1
+
+func start_game():
+	pass
 
 func flashcards(_wave):
 	gamestate = 2
