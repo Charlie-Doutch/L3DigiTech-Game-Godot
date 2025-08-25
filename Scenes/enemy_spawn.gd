@@ -36,7 +36,6 @@ func _ready():
 	shot_timer.timeout.connect(on_enemy_shot)
 	player.connect("game_over", self.on_player_dead)
 	enemy_scene = preload("res://Scenes/enemy.tscn")
-	spawn_wave()
 
 func spawn_wave():
 	enemies_destroyed = 0

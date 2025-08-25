@@ -906,13 +906,14 @@ func _ready():
 	$ResultLabel.visible = false
 
 func _on_confirm_pressed():
-	var SelectedList = $ListSelect.text
+	var SelectedList = $"../ListSelector".get_selected_id()
+	print(SelectedList)
 	
-	if SelectedList == "1":
+	if SelectedList == 0:
 		list = list1
-	elif SelectedList == "2":
+	elif SelectedList == 1:
 		list = list2
-	elif SelectedList == "3":
+	elif SelectedList == 2:
 		list = list3
 	else:
 		$ResultLabel.text = "Invalid list number. Enter 1 or 2."
@@ -920,7 +921,7 @@ func _on_confirm_pressed():
 		return
 		
 	# Hide selection UI
-	$ListSelect.visible = false
+	$"../ListSelector".visible = false
 	$ConfirmButton.visible = false
 
 	# Show quiz UI
@@ -930,6 +931,7 @@ func _on_confirm_pressed():
 	$ResultLabel.visible = true
 	
 	emit_signal("list_chosen")
+	ask_question()
 
 # Function to ask a new word question
 func ask_question():

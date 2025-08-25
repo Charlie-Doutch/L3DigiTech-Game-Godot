@@ -13,13 +13,6 @@ grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_6nt82")
 
-[node name="ListSelect" type="LineEdit" parent="Node2D"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-alignment = 1
-metadata/_edit_use_anchors_ = true
-
 [node name="ConfirmButton" type="Button" parent="Node2D"]
 custom_minimum_size = Vector2(60, 20)
 layout_mode = 2
@@ -48,3 +41,18 @@ size_flags_vertical = 8
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+
+[node name="ListSelector" type="OptionButton" parent="."]
+offset_left = 740.0
+offset_top = 192.0
+offset_right = 857.0
+offset_bottom = 223.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+item_count = 3
+popup/item_0/text = "Level 1 List"
+popup/item_0/id = 0
+popup/item_1/text = "Level 2 List"
+popup/item_1/id = 1
+popup/item_2/text = "Level 3 List"
+popup/item_2/id = 2
