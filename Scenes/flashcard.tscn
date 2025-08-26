@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca1dh5naxbtpd"]
+[gd_scene load_steps=3 format=3 uid="uid://ca1dh5naxbtpd"]
 
 [ext_resource type="Script" uid="uid://cl3m2x51hcmyt" path="res://Scenes/Flashcard.gd" id="1_6nt82"]
+[ext_resource type="Texture2D" uid="uid://c7ct4406k5hr4" path="res://Assests/titlecard.png.png" id="2_1txxf"]
 
 [node name="FlashcardUI" type="CanvasLayer"]
 
@@ -44,9 +45,9 @@ size_flags_vertical = 8
 
 [node name="ListSelector" type="OptionButton" parent="."]
 offset_left = 740.0
-offset_top = 192.0
+offset_top = 300.0
 offset_right = 857.0
-offset_bottom = 223.0
+offset_bottom = 331.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 item_count = 3
@@ -56,3 +57,9 @@ popup/item_1/text = "Level 2 List"
 popup/item_1/id = 1
 popup/item_2/text = "Level 3 List"
 popup/item_2/id = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(807, 168)
+scale = Vector2(6.28125, 6.28125)
+texture = ExtResource("2_1txxf")
