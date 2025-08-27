@@ -6,6 +6,7 @@ extends Node
 @onready var enemy_scene = preload("res://Scenes/enemy_spawn.tscn")
 @onready var flashcard_node = $"Flashcard/Node2D"
 @onready var flashcard_lists = $"Flashcard/ListSelector"
+@onready var title = $"Flashcard/title"
 @onready var player: Player = $"Player"
 @onready var health_label = $"Health"
 @onready var wave_label = $"Wave"
@@ -17,6 +18,7 @@ func _ready():
 	
 	flashcard_node.visible = true
 	flashcard_lists.visible = true
+	title.visible = true
 	enemy.visible = false
 	player.visible = false
 	health_label.visible = false
@@ -29,6 +31,7 @@ func flashcards(_wave):
 	gamestate = 2
 	flashcard_node.visible = true
 	flashcard_lists.visible = false
+	title.visible = false
 	enemy.visible = false
 	player.visible = false
 	health_label.visible = false

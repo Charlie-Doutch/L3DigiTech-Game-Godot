@@ -921,6 +921,7 @@ func _on_confirm_pressed():
 		return
 		
 	# Hide selection UI
+	$"../title".visible = false
 	$"../ListSelector".visible = false
 	$ConfirmButton.visible = false
 
