@@ -7,9 +7,6 @@ func _ready():
 	enemy.connect("wave_won", self.give_powerup)
 	var shooting = get_node("../ShootingOrigin")
 	var player = get_node("..")
-	print(player.player_speed)
-	print(player.player_health)
-	print(shooting.fire_rate)
 
 func give_powerup(_wave):
 	var powerup = randi() % 3

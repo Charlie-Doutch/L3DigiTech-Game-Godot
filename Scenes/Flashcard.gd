@@ -907,7 +907,6 @@ func _ready():
 
 func _on_confirm_pressed():
 	var SelectedList = $"../ListSelector".get_selected_id()
-	print(SelectedList)
 	
 	if SelectedList == 0:
 		list = list1
@@ -916,7 +915,7 @@ func _on_confirm_pressed():
 	elif SelectedList == 2:
 		list = list3
 	else:
-		$ResultLabel.text = "Invalid list number. Enter 1 or 2."
+		$ResultLabel.text = "Please select one of the NCEA vocab lists!"
 		$ResultLabel.visible = true
 		return
 		
@@ -924,6 +923,7 @@ func _on_confirm_pressed():
 	$"../title".visible = false
 	$"../ListSelector".visible = false
 	$ConfirmButton.visible = false
+	$"../instructions".visible = false
 
 	# Show quiz UI
 	$SubmitButton.visible = true
@@ -947,6 +947,7 @@ func ask_question():
 
 # Called when the submit button is pressed
 func _on_submit_pressed():
+	$AnswerInput.visible = false
 	var user_answer = $AnswerInput.text.strip_edges().to_lower()
 	var correct_answer = list[current_word]
 	
@@ -962,4 +963,5 @@ func _on_submit_pressed():
 		correct_answers = 0
 	if correct_answers < 3:
 		await get_tree().create_timer(3).timeout
+		$AnswerInput.visible = true
 		ask_question()

@@ -129,7 +129,6 @@ func on_enemy_shot():
 
 func on_enemy_destroyed():
 	enemies_destroyed += 1
-	print("Enemy destroyed: %d / %d" % [enemies_destroyed, enemy_total])
 	if enemies_destroyed == enemy_total:
 		wave += 1
 		emit_signal("wave_won", wave)

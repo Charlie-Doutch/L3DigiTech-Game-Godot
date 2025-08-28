@@ -19,47 +19,76 @@ custom_minimum_size = Vector2(60, 20)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+text = "Press this button 
+once you have chosen 
+your list!"
 
 [node name="QuestionLabel" type="Label" parent="Node2D"]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 30
 
 [node name="AnswerInput" type="LineEdit" parent="Node2D"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_font_sizes/font_size = 18
+placeholder_text = "Type answer here"
+caret_blink = true
 
 [node name="SubmitButton" type="Button" parent="Node2D"]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_font_sizes/font_size = 18
+text = "Submit answer"
 
 [node name="ResultLabel" type="Label" parent="Node2D"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+theme_override_font_sizes/font_size = 30
 
 [node name="ListSelector" type="OptionButton" parent="."]
-offset_left = 740.0
+offset_left = 662.0
 offset_top = 300.0
-offset_right = 857.0
-offset_bottom = 331.0
+offset_right = 958.0
+offset_bottom = 372.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-item_count = 3
-popup/item_0/text = "Level 1 List"
-popup/item_0/id = 0
-popup/item_1/text = "Level 2 List"
-popup/item_1/id = 1
-popup/item_2/text = "Level 3 List"
-popup/item_2/id = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Please Select a Vocab List to Study"
+popup/item_0/id = 3
+popup/item_1/text = "NCEA Level 1 List"
+popup/item_1/id = 0
+popup/item_2/text = "NCEA Level 2 List"
+popup/item_2/id = 1
+popup/item_3/text = "NCEA Level 3 List"
+popup/item_3/id = 2
 
 [node name="title" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(807, 168)
 scale = Vector2(6.28125, 6.28125)
 texture = ExtResource("2_1txxf")
+
+[node name="instructions" type="Label" parent="."]
+offset_left = 495.0
+offset_top = 543.0
+offset_right = 1117.0
+offset_bottom = 722.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "Select a Vocabulary List to study
+
+Start the game and clear waves
+
+Move with the arrow keys and shoot with the up arrow
+
+After clearing a wave, 
+answer 3 vocabulary questions correctly to get a powerup!"
+horizontal_alignment = 1
