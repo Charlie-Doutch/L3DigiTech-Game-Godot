@@ -1,7 +1,10 @@
+# class name, variables and constants for the script
+
 extends Node2D
 
 class_name EnemySpawn
 
+# signal that emits when all enemies are killed for the wave
 signal wave_won
 
 var rows = 0
@@ -30,11 +33,16 @@ var wave = 0
 @onready var move_timer = $MoveTimer
 @onready var shot_timer = $ShotTimer
 
+# starts the game when called
 func _ready():
+	# starts the game on wave 1
 	wave = 1
+	# starts enemy timers so they move and shoot
 	move_timer.timeout.connect(enemy_move)
 	shot_timer.timeout.connect(on_enemy_shot)
+	# connects game over signal for when player has no health
 	player.connect("game_over", self.on_player_dead)
+	# connects enemies so that they can be spawned
 	enemy_scene = preload("res://Scenes/enemy.tscn")
 
 func spawn_wave():
