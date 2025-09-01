@@ -1,14 +1,12 @@
+# class name, variables and signals for the script
 extends Area2D
 
 class_name Player
 
 @export var player_speed = 250
 @export var player_health = 3
+
 var player_old_health = player_health
-
-signal player_health_changed (new_health)
-signal game_over
-
 var direction = Vector2.ZERO
 
 @onready var player_collision_rect: CollisionShape2D = $CollisionShape2D
@@ -19,6 +17,9 @@ var bound_box_x
 var start_bound
 var end_bound
 
+signal player_health_changed (new_health)
+signal game_over
+# function is called when space invaders portion of game begins
 func _ready():
 	bound_box_x = player_collision_rect.shape.get_rect().size.x
 	

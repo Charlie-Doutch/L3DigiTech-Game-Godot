@@ -1,5 +1,4 @@
 # variables, class name and configs for the script
-
 extends Area2D
 
 class_name Enemy

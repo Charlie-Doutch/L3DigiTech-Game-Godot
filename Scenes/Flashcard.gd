@@ -1,11 +1,13 @@
+# variables and signals for the script
 extends MarginContainer
 
 var correct_answers = 0
+var list = {}
+var current_word = ""
 
 signal list_chosen
-
 signal flashcards_done
-
+# NCEA Level 1 Japanese vocabulary list
 var list1 = {
 	"あう | 会う" : "to meet",
 	"あおい | 青い" : "blue",
@@ -595,6 +597,7 @@ var list1 = {
 	"やさい | 野菜" : "vegetable",
 	"やさしい" : "kind"
 }
+# NCEA Level 2 Japanese vocabulary list
 var list2 = {
 	"あいさつ" : "greeting",
 	"あかるい" : "bright",
@@ -760,6 +763,7 @@ var list2 = {
 	"わくわくする" : "to be excited",
 	"わらう" : "to laugh"
 }
+# NCEA Level 3 Japanese vocabulary list
 var list3 = {
 	"アイデンティティ" : "identity",
 	"アウトドア" : "outdoors",
@@ -889,23 +893,20 @@ var list3 = {
 	"ロボット" : "robot",
 	"わける | 分ける" : "to divide"
 }
-
-var list = {}
-var current_word = ""
-
-# Called when the node enters the scene tree
+# called when the node enters the scene tree
 func _ready():
-	# Connect the confirm and submit buttons
+	# connect the confirm and submit buttons
 	$ConfirmButton.pressed.connect(_on_confirm_pressed)
 	$SubmitButton.pressed.connect(_on_submit_pressed)
 	
-	# Initially hide quiz UI until list is selected
+	# initially hide quiz UI until list is selected
 	$SubmitButton.visible = false
 	$QuestionLabel.visible = false
 	$AnswerInput.visible = false
 	$ResultLabel.visible = false
-
+# called when confirm button is pressed
 func _on_confirm_pressed():
+	# sets the selected list to the one the user has selected from the drop down menu
 	var SelectedList = $"../ListSelector".get_selected_id()
 	
 	if SelectedList == 0:
@@ -914,54 +915,66 @@ func _on_confirm_pressed():
 		list = list2
 	elif SelectedList == 2:
 		list = list3
+	# if there is not selected list, user is prompted to pick one
 	else:
 		$ResultLabel.text = "Please select one of the NCEA vocab lists!"
 		$ResultLabel.visible = true
 		return
 		
-	# Hide selection UI
+	# hide selection UI
 	$"../title".visible = false
 	$"../ListSelector".visible = false
 	$ConfirmButton.visible = false
 	$"../instructions".visible = false
 
-	# Show quiz UI
+	# show quiz UI
 	$SubmitButton.visible = true
 	$QuestionLabel.visible = true
 	$AnswerInput.visible = true
 	$ResultLabel.visible = true
-	
+	# emits the signal that the list has been chosen and starts asking questions
 	emit_signal("list_chosen")
 	ask_question()
 
-# Function to ask a new word question
+# function to ask a new word question
 func ask_question():
 	var word_keys = list.keys()
+	# chooses a random word from the selected vocab list
 	var random_index = randi() % word_keys.size()
 	current_word = word_keys[random_index]
-	
-	# Update UI
+	# update UI
 	$QuestionLabel.text = "%s" % current_word
 	$AnswerInput.text = ""
 	$ResultLabel.text = ""
 
-# Called when the submit button is pressed
+# called when the submit button is pressed
 func _on_submit_pressed():
+	# hides input box
 	$AnswerInput.visible = false
+	# strips answer of extra inputs and makes all lowercase
+	# compares user input answer to the correct answer
 	var user_answer = $AnswerInput.text.strip_edges().to_lower()
 	var correct_answer = list[current_word]
 	
 	if user_answer == correct_answer:
+		# if user is correct, show correct label on screen
+		# increases variable that tracks questions the user has answered correctly
 		$ResultLabel.text = "Correct!"
 		correct_answers += 1
 	else:
+		# if user is wrong, shows the user the correct answer
 		$ResultLabel.text = "Wrong! Correct answer: %s" % correct_answer
-	
+	# finishes flashcard section when user has answered three flashcards correctly
 	if correct_answers == 3:
+		# waits three seconds
 		await get_tree().create_timer(3).timeout
+		# emits signal to signal that the flashcards are done
+		# sets amount of correct answers to zero
 		emit_signal("flashcards_done")
 		correct_answers = 0
 	if correct_answers < 3:
+		# waits three seconds
 		await get_tree().create_timer(3).timeout
+		# makes answer box visible and asks another question
 		$AnswerInput.visible = true
 		ask_question()

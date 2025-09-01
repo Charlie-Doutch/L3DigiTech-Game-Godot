@@ -1,5 +1,4 @@
 # variables and class name for script
-
 extends Area2D
 
 class_name Bullet
