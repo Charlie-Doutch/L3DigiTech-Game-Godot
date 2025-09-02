@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8n0dqgx6xiu1"]
+[gd_scene load_steps=8 format=3 uid="uid://c8n0dqgx6xiu1"]
 
 [ext_resource type="Script" uid="uid://c0ulwd3hke608" path="res://Scenes/main.gd" id="1_6bp64"]
 [ext_resource type="PackedScene" uid="uid://bng3rbrjwsmuj" path="res://Scenes/player.tscn" id="1_jjgbg"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://dugwir88x7bpn" path="res://Scenes/player_health_label.gd" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://ca1dh5naxbtpd" path="res://Scenes/flashcard.tscn" id="5_kry3j"]
 [ext_resource type="Script" uid="uid://dcg1r2ip0otvq" path="res://Scenes/wave_label.gd" id="6_6bp64"]
-[ext_resource type="Script" uid="uid://d8yu5y15v6y8" path="res://Scenes/points_counter.gd" id="6_21xkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bo1nx"]
 size = Vector2(20, 898)
@@ -39,9 +38,6 @@ collision_mask = 4
 shape = SubResource("RectangleShape2D_bo1nx")
 
 [node name="EnemySpawn" parent="." instance=ExtResource("2_bo1nx")]
-
-[node name="PointsCounter" type="Node" parent="."]
-script = ExtResource("6_21xkr")
 
 [node name="Health" type="Label" parent="."]
 offset_left = -750.0

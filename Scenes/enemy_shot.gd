@@ -6,18 +6,14 @@ class_name EnemyShot
 @export var speed = 200
 @export var lifetime := 5.0
 
-# creates enemy bullet when referenced
-func _ready():
+func _ready(): # creates enemy bullet when referenced
 	await get_tree().create_timer(lifetime).timeout
 	queue_free()
 
-# moves enemy bullet
-func _process(delta):
+func _process(delta): # moves enemy bullet
 	position.y += speed * delta
 
-# detect when bullet is in areas
-func _on_area_entered(area):
-	# if bullet is in player, player takes damage
-	if area is Player:
+func _on_area_entered(area): # detect when bullet is in areas
+	if area is Player: # if bullet is in player, player takes damage
 		(area as Player).on_player_hit()
 		queue_free()

@@ -893,8 +893,8 @@ var list3 = {
 	"ロボット" : "robot",
 	"わける | 分ける" : "to divide"
 }
-# called when the node enters the scene tree
-func _ready():
+
+func _ready(): # called when the node enters the scene tree
 	# connect the confirm and submit buttons
 	$ConfirmButton.pressed.connect(_on_confirm_pressed)
 	$SubmitButton.pressed.connect(_on_submit_pressed)
@@ -904,8 +904,8 @@ func _ready():
 	$QuestionLabel.visible = false
 	$AnswerInput.visible = false
 	$ResultLabel.visible = false
-# called when confirm button is pressed
-func _on_confirm_pressed():
+
+func _on_confirm_pressed(): # called when confirm button is pressed
 	# sets the selected list to the one the user has selected from the drop down menu
 	var SelectedList = $"../ListSelector".get_selected_id()
 	
@@ -936,8 +936,7 @@ func _on_confirm_pressed():
 	emit_signal("list_chosen")
 	ask_question()
 
-# function to ask a new word question
-func ask_question():
+func ask_question(): # function to ask a new word question
 	var word_keys = list.keys()
 	# chooses a random word from the selected vocab list
 	var random_index = randi() % word_keys.size()
@@ -947,10 +946,8 @@ func ask_question():
 	$AnswerInput.text = ""
 	$ResultLabel.text = ""
 
-# called when the submit button is pressed
-func _on_submit_pressed():
-	# hides input box
-	$AnswerInput.visible = false
+func _on_submit_pressed(): # called when the submit button is pressed
+	$AnswerInput.visible = false # hides input box
 	# strips answer of extra inputs and makes all lowercase
 	# compares user input answer to the correct answer
 	var user_answer = $AnswerInput.text.strip_edges().to_lower()

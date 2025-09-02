@@ -3,8 +3,7 @@ extends Node2D
 
 class_name EnemySpawn
 
-# signal that emits when all enemies are killed for the wave
-signal wave_won
+signal wave_won # signal that emits when all enemies are killed for the wave
 
 var rows = 0
 var columns = 0
@@ -32,27 +31,25 @@ var wave = 0
 @onready var move_timer = $MoveTimer
 @onready var shot_timer = $ShotTimer
 
-# starts the game when called
-func _ready():
-	# starts the game on wave 1
-	wave = 1
+func _ready(): # starts the game when called
+	wave = 1 # starts the game on wave 1
+	
 	# starts enemy timers so they move and shoot
-	move_timer.timeout.connect(enemy_move)
+	move_timer.timeout.connect(enemy_move) 
 	shot_timer.timeout.connect(on_enemy_shot)
-	# connects game over signal for when player has no health
-	player.connect("game_over", self.on_player_dead)
-	# connects enemies so that they can be spawned
-	enemy_scene = preload("res://Scenes/enemy.tscn")
 
-# spawns enemy wave when called
-func spawn_wave():
+	player.connect("game_over", self.on_player_dead) # connects game over signal for when player has no health
+	
+	enemy_scene = preload("res://Scenes/enemy.tscn") # connects enemies so that they can be spawned
+
+func spawn_wave(): # spawns enemy wave when called
 	# resets relevant variables
 	enemies_destroyed = 0
 	enemy_total = 0
-	# puts the enemies at the starting position
-	position = Vector2(0,0)
-	# makes enemies move in random direction from start position
-	movement_direction = [1, -1].pick_random()
+
+	position = Vector2(0,0) # puts the enemies at the starting position
+	
+	movement_direction = [1, -1].pick_random() # makes enemies move in random direction from start position
 	# starts enemy timers
 	move_timer.start()
 	shot_timer.start()
@@ -76,8 +73,7 @@ func spawn_wave():
 		rows = 7
 	if columns > 15:
 		columns = 15
-	# spawns enemies in rows
-	for row in range(rows):
+	for row in range(rows): # spawns enemies in rows
 		# sets different enemy types for different rows
 		if row == 0:
 			enemy_config = enemy_1_res
@@ -99,24 +95,22 @@ func spawn_wave():
 			# loops back until the amount of enemies spawned matches the amount based on the amount of rows and columns
 			spawn_enemy(enemy_config, spawn_pos)
 			enemy_total += 1
-# function to spawn enemies
-func spawn_enemy(enemy_config, spawn_pos: Vector2):
-	# prepares enemy to be spawned
-	var enemy = enemy_scene.instantiate() as Enemy
+
+func spawn_enemy(enemy_config, spawn_pos: Vector2): # function to spawn enemies
+	var enemy = enemy_scene.instantiate() as Enemy # prepares enemy to be spawned
 	# inital variables for enemy to spawn with
 	enemy.config = enemy_config
 	enemy.global_position = spawn_pos
-	# connects enemy to signal that broadcasts when it is destroyed
-	enemy.on_enemy_destroyed.connect(on_enemy_destroyed)
+	
+	enemy.on_enemy_destroyed.connect(on_enemy_destroyed) # connects enemy to signal that broadcasts when it is destroyed
 	# spawns enemy
 	# adds enemy to scene tree
 	add_child(enemy)
-# function for enemy movement
-func enemy_move():
-	# enemy movement speed increases as game progresses
-	position.x += (wave * 2 + enemy_x_pos_increment) * movement_direction
-# if enemy hits wall, move down and change direction
-func _on_left_wall_area_entered(_area):
+
+func enemy_move(): # function for enemy movement
+	position.x += (wave * 2 + enemy_x_pos_increment) * movement_direction # enemy movement speed increases as game progresses
+
+func _on_left_wall_area_entered(_area): # if enemy hits wall, move down and change direction
 	if (movement_direction == -1):
 		position.y += enemy_y_pos_increment + wave
 		movement_direction *= -1
@@ -124,18 +118,16 @@ func _on_right_wall_area_entered(_area):
 	if (movement_direction == 1):
 		position.y += enemy_y_pos_increment + wave
 		movement_direction *= -1
-# function to make enemies shoot bullets
-func on_enemy_shot():
-	# checks if there are enemies on screen
-	if enemies_destroyed < enemy_total:
+
+func on_enemy_shot(): # function to make enemies shoot bullets
+	if enemies_destroyed < enemy_total: # checks if there are enemies on screen
 		var enemies = get_children().filter(func(child): return child is Enemy)
 		if enemies.size() > 0:
-			# chooses random enemy to shoot from
-			var random_enemy = enemies.pick_random()
-			# prepares enemy shot
-			var enemy_shot = enemy_shot_scene.instantiate() as EnemyShot
-			# enemy shot speed increases as game goes on
-			enemy_shot.speed += wave * wave * 10
+			var random_enemy = enemies.pick_random() # chooses random enemy to shoot from
+			
+			var enemy_shot = enemy_shot_scene.instantiate() as EnemyShot # prepares enemy shot
+			
+			enemy_shot.speed += wave * wave * 10 # enemy shot speed increases as game goes on
 			# caps enemy shot speed so that the game doesn't become too hard/impossible
 			if enemy_shot.speed > 700:
 				enemy_shot.speed = 700
@@ -146,8 +138,8 @@ func on_enemy_shot():
 			pass
 	else:
 		pass
-# function to handle logic when enemy is detroyed
-func on_enemy_destroyed():
+
+func on_enemy_destroyed(): # function to handle logic when enemy is detroyed
 	enemies_destroyed += 1
 	# detects when all enemies are destroyed
 	if enemies_destroyed == enemy_total:
@@ -156,8 +148,8 @@ func on_enemy_destroyed():
 		emit_signal("wave_won", wave)
 		shot_timer.stop()
 		move_timer.stop()
-# function to handle logic when player has no health
-func on_player_dead():
+
+func on_player_dead(): # function to handle logic when player has no health
 	# stops all timers for enemies
 	shot_timer.stop()
 	move_timer.stop()
