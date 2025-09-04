@@ -1,16 +1,15 @@
 # variable for script
-
 extends Node
 
 @onready var enemy: EnemySpawn = $"../../EnemySpawn"
 @onready var enemy_scene = preload("res://Scenes/enemy_spawn.tscn")
-# connects signals and variables/nodes when script is initally called
-func _ready():
+
+func _ready(): # connects signals and variables/nodes when script is initally called
 	enemy.connect("wave_won", self.give_powerup)
 	var shooting = get_node("../ShootingOrigin")
 	var player = get_node("..")
-# function to give the player a powerup
-func give_powerup(_wave):
+
+func give_powerup(_wave): # function to give the player a powerup
 	# chooses a random number that corresponds to a powerup to give to the player
 	var powerup = randi() % 3
 	if powerup == 0: # player speed powerup

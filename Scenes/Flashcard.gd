@@ -963,15 +963,13 @@ func _on_submit_pressed(): # called when the submit button is pressed
 		$ResultLabel.text = "Wrong! Correct answer: %s" % correct_answer
 	# finishes flashcard section when user has answered three flashcards correctly
 	if correct_answers == 3:
-		# waits three seconds
-		await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(3).timeout # waits three seconds
 		# emits signal to signal that the flashcards are done
 		# sets amount of correct answers to zero
 		emit_signal("flashcards_done")
 		correct_answers = 0
 	if correct_answers < 3:
-		# waits three seconds
-		await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(3).timeout # waits three seconds
 		# makes answer box visible and asks another question
 		$AnswerInput.visible = true
 		ask_question()

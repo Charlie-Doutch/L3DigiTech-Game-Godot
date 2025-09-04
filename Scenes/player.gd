@@ -19,10 +19,9 @@ var end_bound
 
 signal player_health_changed (new_health)
 signal game_over
-# function is called when space invaders portion of game begins
-func _ready():
-	# sets colision box size of the player
-	bound_box_x = player_collision_rect.shape.get_rect().size.x
+
+func _ready(): # function is called when space invaders portion of game begins
+	bound_box_x = player_collision_rect.shape.get_rect().size.x # sets colision box size of the player
 	# sets variables for size of playing area and screen/camera
 	var screen_rect = get_viewport().get_visible_rect()
 	var camera = get_viewport().get_camera_2d()
@@ -30,10 +29,9 @@ func _ready():
 	# sets the size for the edges of the screen
 	start_bound = (camera_pos.x - screen_rect.size.x)/2 - 50
 	end_bound = (camera_pos.x + screen_rect.size.x)/2 +50
-# runs on all frames of the game, always awaiting for player input
-func _process(delta):
-	# checks and only runs if the gamestate is in the space invaders gamestate
-	if main.gamestate == 1:
+
+func _process(delta): # runs on all frames of the game, always awaiting for player input
+	if main.gamestate == 1: # checks and only runs if the gamestate is in the space invaders gamestate
 		# sets input variable which is set for left and right arrow keys
 		var input = Input.get_axis("move_left", "move_right")
 		# makes the direction of the players travel correspond with the arrow key pressed
@@ -49,10 +47,9 @@ func _process(delta):
 		if (position.x + delta_movement < start_bound + bound_box_x*transform.get_scale().x || 
 			position.x + delta_movement > end_bound - bound_box_x*transform.get_scale().x):
 			return
-		# moves player
-		position.x += delta_movement
-# handles logic for when player is hit by an enemy bullet
-func on_player_hit():
+		position.x += delta_movement # moves player
+		
+func on_player_hit(): # handles logic for when player is hit by an enemy bullet
 	# check to see if game is in space invaders gamestate, script only runs if in space invaders gamestate
 	if main.gamestate == 1:
 		if player_health >= 1:
@@ -74,15 +71,15 @@ func on_player_hit():
 			animation_player.play("destroyed")
 			# updates player health
 			on_player_health_changed()
-# function that updates player health
-func on_player_health_changed():
+
+func on_player_health_changed(): # function that updates player health
 	# checks to see if player health displayed isn't equal to the actual player health
 	if player_old_health != player_health:
 			# emits signal to change player health on the health label
 			emit_signal("player_health_changed", player_health)
 			player_old_health = player_health
-# handles logic for when animations finish
-func _on_animation_player_animation_finished(anim_name):
+
+func _on_animation_player_animation_finished(anim_name): # handles logic for when animations finish
 	# when player hit anaimation finishes
 	if anim_name == "hit":
 		# removes player invincibilty and makes them able to shoot again
